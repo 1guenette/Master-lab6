@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="library.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+</head>
+<body>
+</style>
+<script type="text/javascript">
+
+  /*$(document).ready(function()
+  {
+    
+  });
+
+  //Sends data to the database
+  function addBooks() //NEEDS WORK
+  {
+    xmlhttp.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200) 
+        {
+          document.getElementById("library").innerHTML = this.responseText;
+        }
+     };
+        xmlhttp.open("GET","getuser.php?q="+str,true);
+        xmlhttp.send();
+    }
+
+  }
+
+
+  function addBooks() //NEEDS WORK
+  {
+    xmlhttp.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200) 
+        {
+          document.getElementById("library").innerHTML = this.responseText;
+        }
+     };
+        xmlhttp.open("GET","isLibrarian.php",true);
+        xmlhttp.send();
+    }
+
+  }*/
+function getRand(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+var randomNumber = getRand(1000, 1999);
+console.log(randomNumber);
+
+function addBook()
+{
+  var title = document.getElementById("title").value;
+  var genre = document.getElementById("genre").value;
+  var id;
+  var author = document.getElementById("author").value; 
+  var shelfID = 0;
+
+  if (title != "" && genre != "") 
+  {
+    if(title == "art")
+    {
+      id = getRand(1000,1999);
+      shelfID = 1;
+    }
+    else if(title == "art")
+    {
+      id = getRand(2000,2999);    
+      shelfID = 2;    
+    }
+    else if(title == "art")
+    {
+      id = getRand(3000,3999);  
+      shelfID = 3;      
+    }
+    else
+    {
+      id = getRand(4000,4999);
+      shelfID = 4;        
+    }
+            $.ajax({
+                type: "GET",
+                cache: false,
+                url: "addBook.php",
+                data: {"title": title, "id": id, "genre": genre, "author": author, "$shelfID": shelfID},
+            });
+        }
+  }
+</script>
+
+
+
+<table id="library">
+  <tr id="artSec">
+  	<th>Art</th>
+  </tr>
+
+  <tr id="scienceSec">
+    <th>Science</th>
+  </tr>
+  
+  <tr id="sportSec">
+    <th>Sport</th>
+  </tr>
+  
+  <tr id="litSec">
+    <th>Literature</th>
+  </tr>
+ </table>
+
+<br>
+
+<p id="desc"></p>
+
+<!-- <h3>Add Book</h3>
+<p style='margin:0px'>Book Name</p>
+<input type="text" id="title">
+<br>
+<br>
+<p style='margin:0px'>Author:</p>
+<input type="text" id="author">
+<br>
+<br>
+<select id = "genre">
+  <option value="art">Art</option>
+  <option value="science">Science</option>
+  <option value="sport">Sport</option>
+  <option value="lit">Literature</option>
+</select>
+<br>
+<button type="button" onclick="addBook()">Add Book</button> -->
+
+
+
+<div id="addForm">
+</div>
+
+</body>
+
+</body>
+</html>
