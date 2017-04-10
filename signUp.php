@@ -18,11 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $query_insert;
 
-    $query = mysqli_query($conn, "SELECT * FROM $db_table WHERE username = '$name'");
+    $query = mysqli_query($conn, "SELECT * FROM $db_table WHERE username = '$name';" );
+    mysqli_query($conn,"SELECT bookName, rentNum, bookID FROM books WHERE genre = 'sport', available='true'");
 
     if (mysqli_num_rows($query) > 0) 
     {
-        $redir = "signUp.php";
+        $redir = "login.html";//change location
         $message = "This account name already exists!";
     }
     else if($confirmPassword != $password)
@@ -56,6 +57,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--BEGIN HTML-->
 <!DOCTYPE html>

@@ -12,7 +12,6 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
 <style>
 table {
     font-family: arial, sans-serif;
@@ -26,50 +25,18 @@ td, th {
     padding: 8px;
 }
 
-</head>
-<body>
 </style>
+</head>
+
+<body>
+
 <script type="text/javascript">
-
-  /*$(document).ready(function()
-  {
-    
-  });
-
-  //Sends data to the database
-  function addBooks() //NEEDS WORK
-  {
-    xmlhttp.onreadystatechange = function(){
-        if (this.readyState == 4 && this.status == 200) 
-        {
-          document.getElementById("library").innerHTML = this.responseText;
-        }
-     };
-        xmlhttp.open("GET","getuser.php?q="+str,true);
-        xmlhttp.send();
-    }
-
-  }
-
-
-  function addBooks() //NEEDS WORK
-  {
-    xmlhttp.onreadystatechange = function(){
-        if (this.readyState == 4 && this.status == 200) 
-        {
-          document.getElementById("library").innerHTML = this.responseText;
-        }
-     };
-        xmlhttp.open("GET","isLibrarian.php",true);
-        xmlhttp.send();
-    }
-
-  }*/
-function getRand(min, max) {
+ 
+function getRand(min, max) 
+{
     return Math.floor(Math.random() * (max - min) + min);
 }
-var randomNumber = getRand(1000, 1999);
-console.log(randomNumber);
+
 
 function addBook()
 {
@@ -101,17 +68,74 @@ function addBook()
       id = getRand(4000,4999);
       shelfID = 4;        
     }
-            $.ajax({
+
+        $.ajax({
                 type: "GET",
                 cache: false,
                 url: "addBook.php",
                 data: {"title": title, "id": id, "genre": genre, "author": author, "$shelfID": shelfID},
             });
-        }
   }
+}
+
+  function displayLibrary()
+  {
+    $.ajax({
+                type: "GET",
+                cache: false,
+                url: "displayLibrary.php"
+            });
+
+  }
+
+  function getDesc(val)
+  {
+    $.ajax({
+               type: "GET",
+               cache: false,
+               url: "getDesc.php",
+               data: {"bookName": val},
+               success: function(data){    //may not be necessary part
+                  $("#desc").html(data);
+                }
+            });
+  }
+
+  function rent(val)
+  {
+    $.ajax({
+               type: "GET",
+               cache: false,
+               url: "getDesc.php",
+               data: {"bookName": val},
+            });
+  }
+
+  
+
+  $(document).ready(function(){
+    displayLibrary();
+
+     $("td").click(function(){
+      var name = this.innerHTML;
+      alert(name);
+      // getDesc(name);
+      });
+
+     $("td").dblclick(function(){
+      var name = this.innerHTML;
+      rent(name);
+
+      });
+    
+  
+  });
+
+
+
+
+
 </script>
-
-
 
 <table id="library">
   <tr id="artSec">
@@ -135,7 +159,8 @@ function addBook()
 
 <p id="desc"></p>
 
-<!-- <h3>Add Book</h3>
+<div id="addForm">
+<!-- <h3>Add Book</h3>  GETS PUT IN HTML IF LIBRARIAN
 <p style='margin:0px'>Book Name</p>
 <input type="text" id="title">
 <br>
@@ -152,13 +177,9 @@ function addBook()
 </select>
 <br>
 <button type="button" onclick="addBook()">Add Book</button> -->
-
-
-
-<div id="addForm">
 </div>
 
-</body>
+
 
 </body>
 </html>

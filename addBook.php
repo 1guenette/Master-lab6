@@ -15,10 +15,10 @@
 	$title = $_REQUEST["title"];
 	$author = $_REQUEST["author"];
 	$id = $_REQUEST["id"];
-	$shelfID = $_REQUEST["shelfID"];
 	$genre = $_REQUEST["genre"];
+	$shelfID = $_REQUEST["shelfID"];
 	
-	$available = False;
+	$available = True;
 
 	$existID = mysqli_query($conn,"SELECT id  from books WHERE id=$id");
 	$sql = "INSERT INTO library(title, author, bookID, available) VALUES($title, $author, $id, $available); 
@@ -58,3 +58,5 @@
     	echo "Error: " . $sql . "<br>" . $conn->error;
 	}
 $conn->close();
+
+?>
