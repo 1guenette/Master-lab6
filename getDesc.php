@@ -5,21 +5,44 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") 
 {
-	$bookName = $_GET["bookName"];
+	$name = $_GET["name"];
 
-	$sql = "SELECT * FROM books WHERE title = $bookName";
-	 //mysqli_query($conn,"SELECT bookName, rentNum, bookID FROM books WHERE genre = 'sport', available='true'");
+	if($_SESSION["librarian"] == True)
+	{
+		$sql = "SELECT * FROM loanHistory WHERE  username= $name";
+	}
+	else
+	{
+		$sql = "SELECT * FROM books WHERE title = $name";
+	}
 	mysqli_query($conn,$sql);
-
-	$data = "";
 	
 
-	while ($bookData = mysql_fetch_array($sql)) 
-    {
-        $data += "<p>".($bookData['bookName'])."</p>";
-        $data += "<p>".($bookData['rentNum'])."</p>";
-        $data += "<p>".($bookData['bookId'])."</p>";
-    }
+
+
+	$data = "";	
+	if($_SESSION["librarian"] == True)
+	{
+		$data += "<table>";	
+		while ($userData = mysql_fetch_array($sql)) 
+    	{
+        	$data += "<th>".($userData['bookID'])."</th>";
+        	$data += "<th>".($userData['date'])."</th>";
+        	$data += "<th>".($userData['returnDate'])."</th>";
+    	}
+    	$data += "</table>";	
+
+	}
+	else
+	{
+
+		while ($bookData = mysql_fetch_array($sql)) 
+    	{
+        	$data += "<p>".($bookData['bookName'])."</p>";
+        	$data += "<p>".($bookData['rentNum'])."</p>";
+        	$data += "<p>".($bookData['bookId'])."</p>";
+    	}
+	}
 
     echo $data;
 

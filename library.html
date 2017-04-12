@@ -28,7 +28,14 @@ td, th {
 </style>
 </head>
 
-<body>
+<body id="main">
+
+
+
+
+
+
+
 
 <script type="text/javascript">
  
@@ -78,12 +85,29 @@ function addBook()
   }
 }
 
+function validate()
+  {
+    $.ajax({
+                type: "GET",
+                cache: false,
+                url: "isLibrarian.php"
+                success: function(data, status){    //may not be necessary part
+                  $("#main").html(data);
+                }
+            });
+
+  }
+  
   function displayLibrary()
   {
     $.ajax({
                 type: "GET",
                 cache: false,
-                url: "displayLibrary.php"
+                url: "fillBook.php"
+                success: function(data, status){    //may not be necessary part
+                  $("#desc").html(data);
+                }
+
             });
 
   }
@@ -94,32 +118,26 @@ function addBook()
                type: "GET",
                cache: false,
                url: "getDesc.php",
-               data: {"bookName": val},
-               success: function(data){    //may not be necessary part
+               data: {"name": val},
+               success: function(data,status){    //may not be necessary part
                   $("#desc").html(data);
                 }
             });
   }
 
-  function rent(val)
-  {
-    $.ajax({
-               type: "GET",
-               cache: false,
-               url: "getDesc.php",
-               data: {"bookName": val},
-            });
-  }
+
+
 
   
 
   $(document).ready(function(){
     displayLibrary();
+    validate();
 
      $("td").click(function(){
       var name = this.innerHTML;
       alert(name);
-      // getDesc(name);
+      getDesc(name);
       });
 
      $("td").dblclick(function(){
@@ -179,6 +197,19 @@ function addBook()
 <button type="button" onclick="addBook()">Add Book</button> -->
 </div>
 
+ 
+<div id="userList">
+ <!-- <div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">User List
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li onclick = "getAlert(this.innerHTML)">HTML</a></li>
+    <li>CSS</a></li>
+    <li>JavaScript</a></li>
+  </ul>
+</div> 
+ -->
+ </div>
 
 
 </body>

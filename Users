@@ -1,0 +1,14 @@
+Users
+[username] [password] [email] [phone] [Librarian] [firstName] [lastName][rentNum][rent1][rent2]
+
+Books
+[bookID] [Title] [due date] [return date][available]
+
+LoanHistory
+[username][bookID][date][return date]
+
+Shelves
+[shelfID] [shelfName]
+
+BookLocation
+[BookID] [shelfID]

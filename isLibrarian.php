@@ -7,12 +7,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
     $booker = "";
     
-    
-    
+    $userList = "<div class='dropdown'>
+                <button class='btn btn-primary dropdown-toggle' type='button' data-toggle='dropdown'>User List
+                <span class='caret'></span></button>
+                <ul class='dropdown-menu'>";
 
+    $sql = "SELECT username FROM accounts";
 
-    if (mysqli_num_rows($query) > 0) 
-    {
+    
         if( $_SESSION["librarian"]  == True)
         {
             $booker +="
@@ -34,10 +36,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 <br>
                 <button type='button' onclick='addBook()'>Add Book</button>             
             ";
+
+            while ($name = mysql_fetch_array($sql)) 
+            {
+                $userList += "<li onclick='getDesc(this.innerHTML)'>"+$name+"</li>";
+
+
+            }
+            $userList +="</ul></div>"
         }
-        $desc = "<script>", "document.getElementById.value('addForm').value = $booker;","</script>";
+        $desc = "<script>", "document.getElementById('addForm').value = $booker;","document.getElementById('userlist').value = $userList;","</script>";
         echo $desc;
-    } 
+     
 }
 
 
