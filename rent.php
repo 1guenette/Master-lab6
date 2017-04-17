@@ -23,20 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
             $newRentNum = $_SESSION["rentNum"];
             
             $user = $_SESSION["username"];
+            
             $id= $bookData["bookID"];
+            $title= $bookData["title"];
             $startDate = date("Y/m/d");
             
 
-            if($_SESSION["rentNum"] ==1)
-            {
-                mysqli_query($conn, "INSERT INTO accounts (rentNum, rent1) VALUES '$newRentNum','$bookName");
-                mysqli_query($conn, "INSERT INTO loanHistory (username, startDate, bookID) VALUES '$user',  '$startDate', '$id'");
-            }
-            else
-            {
-                mysqli_query($conn, "INSERT INTO accounts (rentNum, rent2) VALUES '$newRentNum','$bookName");
-                mysqli_query($conn, "INSERT INTO loanHistory (username, startDate) VALUES '$user',  '$startDate'");
-            }
+            mysqli_query($conn, "UPDATE accounts SET rentNum = '$newRentNum' WHERE users='$user';");
+            mysqli_query($conn, "UPDATE books SET owner = '$user', available= false, rentDate='$startDate' WHERE title='$title';");
+               
            
             $data+="<script>alert('Book has been added to your rental cart')</script>"
 
