@@ -7,6 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
 {
 	$name = $_GET["name"];
 
+	$sql="";
 	if($_SESSION["librarian"] == True)
 	{
 		$sql = "SELECT * FROM loanHistory WHERE  username= $name";
@@ -23,24 +24,21 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
 	$data = "";	
 	if($_SESSION["librarian"] == True)
 	{
-		$data += "<table>";	
+		$data += "<table><tr><th>BookID</th><th>Date</th><th>Return Date:</th></tr>";	
 		while ($userData = mysql_fetch_array($sql)) 
     	{
-        	$data += "<th>".($userData['bookID'])."</th>";
-        	$data += "<th>".($userData['date'])."</th>";
-        	$data += "<th>".($userData['returnDate'])."</th>";
+        	$data += "<tr><td>".($userData['bookID'])."</td><td>".($userData['date'])."</td><td>".($userData['returnDate'])."</td><tr>";
     	}
-    	$data += "</table>";	
+    	$data += "</tr></table>";	
 
 	}
 	else
 	{
+		$data += "<table><tr><th>Book Name:</th><th>Author:</th><th>Rent Number:</th><th>Book ID:</th></tr>";
 
 		while ($bookData = mysql_fetch_array($sql)) 
     	{
-        	$data += "<p>".($bookData['bookName'])."</p>";
-        	$data += "<p>".($bookData['rentNum'])."</p>";
-        	$data += "<p>".($bookData['bookId'])."</p>";
+        	$data += "<tr><td>".($bookData['bookName'])."</td><td>".($bookData['author'])."</td><td>".($bookData['rentNum'])."</td><td>".($bookData['bookID'])."</td><tr>";
     	}
 	}
 
